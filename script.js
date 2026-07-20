@@ -186,7 +186,9 @@ function initStory() {
   }
 
   const ctx = canvas.getContext('2d');
-  const PMAX = innerWidth < 760 ? 650 : 1300;
+  // Sur mobile, la police est bien plus petite (largeur d'écran réduite) : il
+  // faut davantage de particules pour que le mot reste lisible, pas moins.
+  const PMAX = innerWidth < 760 ? 950 : 1300;
   let W = 0, H = 0, dpr = 1;
   let particles = [];
   let targetsCache = {};
@@ -217,13 +219,15 @@ function initStory() {
     octx.textBaseline = 'middle';
     for (;;) {
       octx.font = '700 ' + size + 'px "Space Grotesk", "Segoe UI", sans-serif';
-      if (octx.measureText(word).width <= W * 0.84 || size <= 60) break;
+      if (octx.measureText(word).width <= W * 0.92 || size <= 60) break;
       size -= 10;
     }
     octx.fillStyle = '#000';
     octx.fillText(word, W / 2, H * 0.42);
     const data = octx.getImageData(0, 0, W, H).data;
-    const step = innerWidth < 760 ? 5 : 6;
+    // Le pas d'échantillonnage suit la taille de police réelle : sur mobile,
+    // le mot est rendu bien plus petit, donc un pas fixe le rendrait flou.
+    const step = Math.max(2, Math.round(size / 42));
     const pts = [];
     for (let y = 0; y < H; y += step) {
       for (let x = 0; x < W; x += step) {
