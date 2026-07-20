@@ -658,7 +658,7 @@ function initCounters() {
 }
 
 /* ============ COPIER L'EMAIL ============ */
-const EMAIL = 'raphael.bruneau@outlook.com';
+const EMAIL = 'adam.bruneau@outlook.fr';
 async function copyEmail() {
   try {
     await navigator.clipboard.writeText(EMAIL);
