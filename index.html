@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adam Bruneau — Étudiant ingénieur en Informatique & Cybersécurité</title>
+  <meta name="description" content="Portfolio d'Adam Bruneau — étudiant en Bachelor Informatique & Cybersécurité à l'ESILV (Paris — La Défense). Python, IA, développement, sécurité informatique.">
+  <script>
+    // Appliquer le thème sauvegardé avant le premier rendu (évite le flash)
+    try { var t = localStorage.getItem('ab-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%232563eb'/><text x='50' y='68' font-size='48' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'>AB</text></svg>">
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+  <div id="scroll-progress"></div>
+  <div id="toast" role="status"></div>
+
+  <!-- ============ PALETTE DE COMMANDES (Ctrl+K) ============ -->
+  <div id="palette" class="palette" hidden>
+    <div class="palette-backdrop"></div>
+    <div class="palette-panel" role="dialog" aria-label="Palette de commandes">
+      <input id="palette-input" type="text" placeholder="Rechercher une section ou une action…" autocomplete="off" spellcheck="false">
+      <ul id="palette-list"></ul>
+      <div class="palette-foot">
+        <span>↑↓ naviguer</span><span>↵ sélectionner</span><span>Échap fermer</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header id="site-header">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo"><span class="mark">AB</span> Adam Bruneau</a>
+      <ul class="nav-links">
+        <li><a href="#histoire">Histoire</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="palette-btn" class="kbd-btn" type="button" aria-label="Ouvrir la palette de commandes">
+          <kbd>Ctrl</kbd><kbd>K</kbd>
+        </button>
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Changer de thème">
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="#contact" class="nav-cta">Me contacter</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section id="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-bg"></div>
+      <div class="blob-wrap bw1"><div class="hero-blob b1"></div></div>
+      <div class="blob-wrap bw2"><div class="hero-blob b2"></div></div>
+
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <div class="hero-badge fade-item d1"><span class="dot"></span> Disponible pour un stage ou un projet</div>
+          <h1 class="hero-title">
+            <span class="word" id="word-1">Adam</span>
+            <span class="word grad" id="word-2">Bruneau</span>
+          </h1>
+          <p class="hero-role fade-item d2">
+            Étudiant ingénieur en Informatique &amp; Cybersécurité, passionné par
+            <span class="rotator" id="rotator">la cybersécurité</span>
+          </p>
+          <p class="hero-pitch fade-item d3">
+            En première année de Bachelor à l'ESILV (Paris — La Défense), je développe
+            des projets concrets en parallèle de ma formation — dont un agent d'analyse
+            de marchés financiers piloté par machine learning, entièrement conçu en Python.
+          </p>
+          <div class="hero-cta fade-item d4">
+            <a href="#histoire" class="btn btn-primary" data-magnetic>Découvrir mon histoire</a>
+            <a href="#projets" class="btn btn-ghost" data-magnetic>Voir mes projets</a>
+          </div>
+          <div class="hero-meta fade-item d5">
+            <div class="item"><div class="k"><span class="counter" data-target="5000">0</span>+</div><div class="v">Lignes de code</div></div>
+            <div class="item"><div class="k"><span class="counter" data-target="10">0</span>+</div><div class="v">Technologies</div></div>
+            <div class="item"><div class="k"><span class="counter" data-target="3">0</span></div><div class="v">Projets majeurs</div></div>
+          </div>
+        </div>
+
+        <div class="hero-right fade-item d3">
+          <div class="code-window" data-tilt>
+            <div class="code-head">
+              <span class="cd r"></span><span class="cd y"></span><span class="cd g"></span>
+              <span class="fname">trading_agent.py</span>
+              <span class="status">● en exécution</span>
+            </div>
+            <pre class="code-body" id="code-body"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HISTOIRE — SCROLLYTELLING ============ -->
+    <section id="histoire" aria-label="Mon histoire animée">
+      <div class="story-track">
+        <div class="story-sticky">
+          <div class="story-dots"></div>
+          <canvas id="story-canvas"></canvas>
+
+          <div class="story-overline">
+            <span class="section-tag">Mon histoire</span>
+            <span class="hint">Continuez à faire défiler</span>
+            <span class="chev">▾</span>
+          </div>
+
+          <div class="story-steps">
+            <div class="story-step" data-step="0">
+              <span class="num">01 / 05</span>
+              <h3>Le point de départ</h3>
+              <p>Baccalauréat en poche, une certitude s'impose : mon avenir s'écrira en lignes de code.</p>
+            </div>
+            <div class="story-step" data-step="1">
+              <span class="num">02 / 05</span>
+              <h3>L'école d'ingénieurs</h3>
+              <p>J'intègre le Bachelor Informatique &amp; Cybersécurité de l'ESILV, à La Défense. Algorithmique, Python, systèmes : les fondations se posent.</p>
+            </div>
+            <div class="story-step" data-step="2">
+              <span class="num">03 / 05</span>
+              <h3>Le premier grand projet</h3>
+              <p>Je conçois seul un agent d'analyse des marchés financiers : machine learning, backtesting, gestion du risque. Des milliers de lignes qui tournent en autonomie.</p>
+            </div>
+            <div class="story-step" data-step="3">
+              <span class="num">04 / 05</span>
+              <h3>La spécialisation qui m'anime</h3>
+              <p>Réseaux, Linux, sécurité offensive et défensive : je me forme pour protéger les systèmes de demain.</p>
+            </div>
+            <div class="story-step" data-step="4">
+              <span class="num">05 / 05</span>
+              <h3>Objectif ingénieur</h3>
+              <p>Diplôme, certifications, premiers défis professionnels. La suite s'écrit maintenant — pourquoi pas avec vous ?</p>
+            </div>
+          </div>
+
+          <div class="story-rail" aria-label="Chapitres">
+            <button type="button" data-i="0"><i></i><span>Le déclic</span></button>
+            <button type="button" data-i="1"><i></i><span>ESILV</span></button>
+            <button type="button" data-i="2"><i></i><span>Le projet</span></button>
+            <button type="button" data-i="3"><i></i><span>Cybersécurité</span></button>
+            <button type="button" data-i="4"><i></i><span>Demain</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BANDEAU DÉFILANT ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track"></div>
+    </div>
+
+    <!-- ============ À PROPOS ============ -->
+    <section id="apropos">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">À propos</span>
+          <h2 class="section-title">Construire des bases solides, un projet à la fois</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>
+              Étudiant en <strong>première année de Bachelor Informatique &amp; Cybersécurité</strong>
+              à l'<strong>ESILV</strong>, je me forme aux fondamentaux de l'ingénierie logicielle :
+              algorithmique, programmation, systèmes et réseaux.
+            </p>
+            <p>
+              Ce qui me caractérise : je n'attends pas les cours pour apprendre. J'ai conçu et
+              développé en autonomie un <span class="accent">agent d'analyse de marchés financiers</span>
+              complet — architecture modulaire, machine learning, backtesting, gestion du risque
+              et tests automatisés. Un projet de plusieurs milliers de lignes de Python qui m'a
+              appris davantage que n'importe quel tutoriel.
+            </p>
+            <p>
+              Mon objectif à terme : devenir <span class="accent">ingénieur en cybersécurité</span>,
+              avec une approche rigoureuse et éthique de la sécurité des systèmes.
+            </p>
+          </div>
+
+          <aside class="info-card reveal" data-tilt>
+            <h3>Informations</h3>
+            <div class="row"><span class="k">Formation</span><span class="v">Bachelor Info &amp; Cybersécurité</span></div>
+            <div class="row"><span class="k">Année</span><span class="v">1ʳᵉ année (A1)</span></div>
+            <div class="row"><span class="k">École</span><span class="v">ESILV</span></div>
+            <div class="row"><span class="k">Campus</span><span class="v">Paris — La Défense</span></div>
+            <div class="row"><span class="k">Langage principal</span><span class="v">Python</span></div>
+            <div class="row"><span class="k">Recherche</span><span class="v">Stage / projets</span></div>
+          </aside>
+        </div>
+
+        <div class="stats-row stagger" data-skew>
+          <div class="stat-card"><div class="num"><span class="counter" data-target="1">0</span></div><div class="label">Année d'expérience en développement</div></div>
+          <div class="stat-card"><div class="num"><span class="counter" data-target="3">0</span></div><div class="label">Projets réalisés ou en cours</div></div>
+          <div class="stat-card"><div class="num"><span class="counter" data-target="10">0</span>+</div><div class="label">Technologies pratiquées</div></div>
+          <div class="stat-card"><div class="num">100%</div><div class="label">Motivation &amp; curiosité</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPÉTENCES ============ -->
+    <section id="competences">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">Compétences</span>
+          <h2 class="section-title">Ce que je pratique au quotidien</h2>
+          <p class="section-sub">Des compétences acquises en cours à l'ESILV et approfondies par mes projets personnels.</p>
+        </div>
+
+        <div class="skills-grid stagger" data-skew>
+          <div class="skill-card" data-tilt>
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>Programmation</h3>
+            <p>Mon cœur de compétence : conception et développement d'applications complètes.</p>
+            <div class="chips"><span>Python</span><span>JavaScript</span><span>SQL</span><span>Algorithmique</span></div>
+          </div>
+
+          <div class="skill-card" data-tilt>
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+            </div>
+            <h3>Data &amp; Intelligence Artificielle</h3>
+            <p>Machine learning appliqué : préparation de données, entraînement et évaluation de modèles.</p>
+            <div class="chips"><span>Pandas</span><span>Scikit-learn</span><span>Streamlit</span><span>Feature engineering</span></div>
+          </div>
+
+          <div class="skill-card" data-tilt>
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Cybersécurité &amp; Systèmes</h3>
+            <p>Fondamentaux en cours d'acquisition : systèmes, réseaux et bonnes pratiques de sécurité.</p>
+            <div class="chips"><span>Linux</span><span>Réseaux</span><span>Sécurité des systèmes</span><span>Ligne de commande</span></div>
+          </div>
+
+          <div class="skill-card" data-tilt>
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Outils &amp; Méthodes</h3>
+            <p>Un environnement de travail professionnel, du versionnage aux tests automatisés.</p>
+            <div class="chips"><span>Git</span><span>Pytest</span><span>APIs REST</span><span>VS Code</span><span>Outils IA</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJETS ============ -->
+    <section id="projets">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">Projets</span>
+          <h2 class="section-title">Réalisations concrètes</h2>
+          <p class="section-sub">Des projets menés de bout en bout, de la conception au déploiement.</p>
+        </div>
+
+        <div class="projects-grid stagger" data-skew>
+          <article class="project-card" data-tilt>
+            <div class="project-banner"></div>
+            <div class="card-glare"></div>
+            <div class="project-body">
+              <div class="project-top">
+                <div class="project-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <span class="project-badge main">Projet principal</span>
+              </div>
+              <h3>Agent d'analyse de marchés financiers</h3>
+              <p class="desc">
+                Système autonome d'analyse et de simulation de stratégies d'investissement
+                (paper trading) : <strong>stratégies multiples</strong> (RSI, MACD, moyennes mobiles,
+                machine learning), <strong>backtesting</strong>, <strong>gestion du risque</strong>,
+                analyse d'actualités et tableau de bord temps réel. Architecture modulaire
+                testée avec Pytest.
+              </p>
+              <div class="project-stack">
+                <span>Python</span><span>Machine Learning</span><span>Streamlit</span><span>SQLite</span><span>APIs REST</span><span>Pytest</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-tilt>
+            <div class="project-banner"></div>
+            <div class="card-glare"></div>
+            <div class="project-body">
+              <div class="project-top">
+                <div class="project-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <span class="project-badge live">En ligne</span>
+              </div>
+              <h3>Portfolio personnel</h3>
+              <p class="desc">
+                Le site que vous consultez : conçu et développé <strong>entièrement à la main</strong>,
+                sans framework ni librairie. Storytelling au scroll piloté par un
+                <strong>moteur de particules maison</strong>, thème clair/sombre, palette de
+                commandes (Ctrl+K), cartes 3D — le tout accessible et responsive.
+              </p>
+              <div class="project-stack">
+                <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Canvas API</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-tilt>
+            <div class="project-banner"></div>
+            <div class="card-glare"></div>
+            <div class="project-body">
+              <div class="project-top">
+                <div class="project-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <span class="project-badge wip">En cours</span>
+              </div>
+              <h3>Formation continue en cybersécurité</h3>
+              <p class="desc">
+                Montée en compétences structurée en dehors des cours : <strong>laboratoires
+                pratiques</strong> sur machines virtuelles, fondamentaux des réseaux et des
+                systèmes Linux, et exercices guidés sur des plateformes d'apprentissage
+                reconnues (TryHackMe, Root-Me).
+              </p>
+              <div class="project-stack">
+                <span>Linux</span><span>Réseaux</span><span>Machines virtuelles</span><span>Veille sécurité</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PARCOURS ============ -->
+    <section id="parcours">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">Parcours</span>
+          <h2 class="section-title">Mon chemin vers l'ingénierie</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-progress"></div>
+          <div class="tl-item reveal">
+            <div class="tl-date">2025</div>
+            <h3 class="tl-title">Baccalauréat</h3>
+            <p class="tl-desc">Obtention du baccalauréat et orientation vers l'ingénierie informatique.</p>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date">2025 — 2026</div>
+            <h3 class="tl-title">ESILV — Bachelor Informatique &amp; Cybersécurité (A1)</h3>
+            <p class="tl-desc">
+              Première année : algorithmique, programmation Python, mathématiques,
+              fondamentaux des systèmes et du développement web.
+            </p>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date">2026</div>
+            <h3 class="tl-title">Premier projet d'envergure</h3>
+            <p class="tl-desc">
+              Conception et développement en autonomie d'un agent d'analyse de marchés
+              financiers piloté par machine learning — plusieurs milliers de lignes de code,
+              architecture modulaire et tests automatisés.
+            </p>
+          </div>
+          <div class="tl-item future reveal">
+            <div class="tl-date">2026 — 2028 <span class="tl-chip">Objectif</span></div>
+            <h3 class="tl-title">Spécialisation cybersécurité</h3>
+            <p class="tl-desc">
+              Approfondissement : sécurité des réseaux, cryptographie, tests d'intrusion
+              éthiques et premières certifications professionnelles.
+            </p>
+          </div>
+          <div class="tl-item future reveal">
+            <div class="tl-date">Et après <span class="tl-chip">Objectif</span></div>
+            <h3 class="tl-title">Ingénieur en cybersécurité</h3>
+            <p class="tl-desc">Contribuer à la sécurité des systèmes d'information avec rigueur et éthique.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-card reveal">
+          <h2>Travaillons ensemble</h2>
+          <p>
+            Stage, alternance, projet ou simple échange autour de la tech et de la
+            cybersécurité : n'hésitez pas à me contacter, je réponds rapidement.
+          </p>
+          <div class="contact-actions">
+            <a class="btn btn-light" href="mailto:raphael.bruneau@outlook.com" data-magnetic>Envoyer un email</a>
+            <button class="btn btn-outline" id="copy-email" type="button" data-magnetic>Copier l'adresse</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 Adam Bruneau — Tous droits réservés</div>
+      <div class="cmd-hint">Astuce : appuyez sur <kbd>Ctrl</kbd> + <kbd>K</kbd></div>
+      <div>Conçu et développé à la main · HTML, CSS &amp; JavaScript</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
