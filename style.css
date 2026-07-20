@@ -274,7 +274,7 @@ header.scrolled { border-color: var(--border); box-shadow: var(--shadow-sm); }
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(32px, 4vw, 60px);
   align-items: center;
   perspective: 1100px;
@@ -722,6 +722,21 @@ main > section:nth-of-type(even) .info-card { background: var(--bg); }
 .info-card .row:last-child { border-bottom: none; }
 .info-card .row .k { color: var(--muted); }
 .info-card .row .v { font-weight: 600; text-align: right; }
+.info-card .row .v.online {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #16a34a;
+}
+.info-card .row .v.online::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .info-card .row .v.online { color: #4ade80; }
 
 .stats-row {
   margin-top: 64px;
@@ -854,6 +869,7 @@ main > section:nth-of-type(even) .project-card { background: var(--bg); }
 .project-badge.main { background: var(--accent-soft); color: var(--accent); }
 .project-badge.live { background: #f0fdf4; color: #166534; }
 .project-badge.wip { background: #fff7ed; color: #9a3412; }
+.project-badge.neutral { background: var(--chip-bg); color: var(--muted); }
 [data-theme="dark"] .project-badge.live { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
 [data-theme="dark"] .project-badge.wip { background: rgba(251, 146, 60, 0.12); color: #fdba74; }
 .project-icon {
@@ -886,6 +902,17 @@ main > section:nth-of-type(even) .project-card { background: var(--bg); }
   margin-left: 8px;
   color: var(--border);
 }
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  transition: gap .2s;
+}
+.project-link:hover { gap: 10px; }
 
 /* ============ PARCOURS ============ */
 .timeline {
@@ -927,6 +954,14 @@ main > section:nth-of-type(even) .project-card { background: var(--bg); }
   box-shadow: 0 0 0 5px var(--accent-soft);
   transform: scale(1.1);
 }
+.tl-item.current::before {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.16);
+}
+.tl-item.current.lit::before {
+  animation: pulse 2s infinite;
+  transform: scale(1.1);
+}
 .tl-date {
   font-size: 13.5px;
   font-weight: 600;
@@ -935,6 +970,8 @@ main > section:nth-of-type(even) .project-card { background: var(--bg); }
   text-transform: uppercase;
 }
 .tl-item.future .tl-date { color: var(--muted); }
+.tl-item.current .tl-date { color: #16a34a; }
+[data-theme="dark"] .tl-item.current .tl-date { color: #4ade80; }
 .tl-title {
   font-family: var(--font-head);
   font-size: 20px;
@@ -953,6 +990,8 @@ main > section:nth-of-type(even) .project-card { background: var(--bg); }
   margin-left: 10px;
   vertical-align: middle;
 }
+.tl-chip.current-chip { color: #16a34a; background: #f0fdf4; }
+[data-theme="dark"] .tl-chip.current-chip { color: #4ade80; background: rgba(34, 197, 94, 0.12); }
 
 /* ============ CONTACT ============ */
 .contact-card {
@@ -1130,7 +1169,7 @@ footer { padding: 32px 0; border-top: 1px solid var(--border); }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
-  .hero-grid { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
   .hero-right { max-width: 580px; }
   .code-body { min-height: 300px; font-size: 12.5px; }
 }

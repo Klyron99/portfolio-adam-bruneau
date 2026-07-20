@@ -211,6 +211,10 @@ function initStory() {
 
   function sampleWord(word) {
     if (targetsCache[word]) return targetsCache[word];
+    // Garde-fou : si le conteneur n'a pas encore de dimensions réelles
+    // (page chargée dans un onglet en arrière-plan, layout pas encore calculé),
+    // on retourne un point central plutôt que de planter sur un canvas de taille 0.
+    if (W <= 0 || H <= 0) return [{ x: W / 2, y: H / 2 }];
     const oc = document.createElement('canvas');
     oc.width = W; oc.height = H;
     const octx = oc.getContext('2d', { willReadFrequently: true });
@@ -346,6 +350,12 @@ function initStory() {
     mouse.y = e.clientY - rect.top;
   });
   window.addEventListener('resize', resize);
+  // Si la page a été chargée dans un onglet en arrière-plan, le conteneur
+  // peut avoir une largeur de 0 au démarrage : on relance le calcul dès que
+  // l'onglet redevient visible.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && W <= 0) resize();
+  });
 
   resize();
   initParticles();
